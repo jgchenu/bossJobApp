@@ -58,7 +58,7 @@ export function register({
             pwd,
             type
         }).then(res => {
-            if (res.status === 200 && res.data.code === 0) {
+            if (res.status === 200 && res.data.code === 200) {
                 dispatch(registerSuccess({
                     user,
                     pwd,

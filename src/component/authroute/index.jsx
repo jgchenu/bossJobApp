@@ -6,7 +6,7 @@ class AuthRoute extends React.Component {
   componentDidMount() {
     const publicList = ["/login", "/register"];
     const pathname = this.props.location.pathname;
-    if (pathname in publicList) {
+    if (publicList.indexOf(pathname) > -1) {
       return null;
     }
     axios.get("/user/info").then(res => {
@@ -14,7 +14,7 @@ class AuthRoute extends React.Component {
         console.log(res);
         if (res.data.code === 200) {
         } else {
-          this.props.history.push("/boss");
+          // this.props.history.push("/boss");
         }
       }
     });

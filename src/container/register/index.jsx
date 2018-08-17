@@ -9,6 +9,12 @@ import {
 } from "antd-mobile";
 import "./index.less";
 import Logo from "../../component/logo";
+import { connect } from "react-redux";
+import { register } from "../../redux/user.redux.js";
+@connect(
+  state => state.user,
+  { register }
+)
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -23,7 +29,8 @@ class Register extends React.Component {
   }
   handleRegister() {
     console.log(this.state);
-    this.props.history.push("/register");
+    // this.props.history.push("/register");
+    this.props.register(this.state);
   }
   login() {
     console.log(this.props);
@@ -47,11 +54,17 @@ class Register extends React.Component {
               用户：
             </InputItem>
             <WhiteSpace />
-            <InputItem type='password' onChange={v => this.handleChange("pwd", v)}>
+            <InputItem
+              type="password"
+              onChange={v => this.handleChange("pwd", v)}
+            >
               密码：
             </InputItem>
             <WhiteSpace />
-            <InputItem type='password' onChange={v => this.handleChange("repeatpwd", v)}>
+            <InputItem
+              type="password"
+              onChange={v => this.handleChange("repeatpwd", v)}
+            >
               再次密码：
             </InputItem>
             <WhiteSpace />
