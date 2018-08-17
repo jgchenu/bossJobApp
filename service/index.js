@@ -1,11 +1,13 @@
 const Koa = require('koa')
-const app = new Koa;
+const app = new Koa();
 const Router = require('koa-router')
 const bodyParser = require('koa-bodyparser');
 const cors = require('koa2-cors');
 const home = require('./api/home')
-const router = new Router;
+const user = require('./api/user')
+const router = new Router();
 router.use('/data', home.routes())
+router.use('/user', user.routes())
 app.use(bodyParser())
 app.use(cors())
 app.use(router.routes())

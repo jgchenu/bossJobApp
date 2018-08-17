@@ -142,6 +142,13 @@ module.exports = {
             include: paths.appSrc,
             loader: require.resolve('babel-loader'),
             options: {
+              plugins: [
+                ['import', [{
+                  libraryName: 'antd-mobile',
+                  style: true
+                }]], // import less
+                "transform-decorators-legacy"
+              ],
 
               // This is a feature of `babel-loader` for webpack (not Babel itself).
               // It enables caching results in ./node_modules/.cache/babel-loader/
@@ -187,7 +194,9 @@ module.exports = {
               {
                 loader: require.resolve('less-loader'),
                 options: {
-                  modules: false
+                  modules: false,
+                  modifyVars: true,
+                  javascriptEnabled: true
                 }
               }
             ],

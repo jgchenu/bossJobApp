@@ -3,28 +3,32 @@ import ReactDOM from "react-dom";
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import "./config";
-import Login from './container/login'
-import Register from './container/register'
+import Login from "./container/login";
+import Register from "./container/register";
 import { Provider } from "react-redux";
-import reducers from "./reducers";
-import { BrowserRouter, Route, Redirect, Switch } from "react-router-dom";
+import reducer from "./reducer";
+import AuthRoute from "./component/authroute";
+import { BrowserRouter, Route } from "react-router-dom";
 
 const store = createStore(
-  reducers,
+  reducer,
   compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 );
-
+function Boss() {
+  return <h1>Boss</h1>;
+}
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <Switch>
+      <div>
+        <AuthRoute />
+        <Route path="/boss" component={Boss} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Redirect to="/login" />
-      </Switch>
+      </div>
     </BrowserRouter>
   </Provider>,
   document.getElementById("root")
