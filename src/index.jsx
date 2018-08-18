@@ -8,7 +8,7 @@ import Register from "./container/register";
 import { Provider } from "react-redux";
 import reducer from "./reducer";
 import AuthRoute from "./component/authroute";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 const store = createStore(
   reducer,
@@ -25,9 +25,12 @@ ReactDOM.render(
     <BrowserRouter>
       <div>
         <AuthRoute />
-        <Route path="/boss" component={Boss} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
+        <Switch>
+          <Route path="/boss" component={Boss} />
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          {/* <Redirect to="/login" /> */}
+        </Switch>
       </div>
     </BrowserRouter>
   </Provider>,

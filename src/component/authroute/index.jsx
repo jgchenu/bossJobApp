@@ -1,6 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import {connect} from 'react-redux'
+import { getUserInfo} from './../../redux/user.redux'
+@connect(
+  state=>state.user,
+  { getUserInfo}
+)
 @withRouter
 class AuthRoute extends React.Component {
   componentDidMount() {
@@ -9,18 +15,10 @@ class AuthRoute extends React.Component {
     if (publicList.indexOf(pathname) > -1) {
       return null;
     }
-    axios.get("/user/info").then(res => {
-      if (res.status === 200) {
-        console.log(res);
-        if (res.data.code === 200) {
-        } else {
-          // this.props.history.push("/boss");
-        }
-      }
-    });
+    this.props.getUserInfo()
   }
   render() {
-    return <p>AuthRoute</p>;
+    return null;
   }
 }
 export default AuthRoute;

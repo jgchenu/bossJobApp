@@ -11,6 +11,7 @@ import "./index.less";
 import Logo from "../../component/logo";
 import { connect } from "react-redux";
 import { register } from "../../redux/user.redux.js";
+import { Redirect} from 'react-router-dom'
 @connect(
   state => state.user,
   { register }
@@ -44,41 +45,33 @@ class Register extends React.Component {
   render() {
     const RadioItem = Radio.RadioItem;
 
-    return (
-      <div className="register">
+    return <div className="register">
+        {this.props.redirectTo ? <Redirect to={this.props.redirectTo} /> : null}
         <Logo />
         <h2>注册页</h2>
         <WingBlank>
           <List>
+            <WhiteSpace />
+            {this.props.msg ? <p className="errorMsg">
+                {this.props.msg}
+              </p> : null}
             <InputItem onChange={v => this.handleChange("user", v)}>
               用户：
             </InputItem>
             <WhiteSpace />
-            <InputItem
-              type="password"
-              onChange={v => this.handleChange("pwd", v)}
-            >
+            <InputItem type="password" onChange={v => this.handleChange("pwd", v)}>
               密码：
             </InputItem>
             <WhiteSpace />
-            <InputItem
-              type="password"
-              onChange={v => this.handleChange("repeatpwd", v)}
-            >
+            <InputItem type="password" onChange={v => this.handleChange("repeatpwd", v)}>
               再次密码：
             </InputItem>
             <WhiteSpace />
-            <RadioItem
-              checked={this.state.type === "genius"}
-              onChange={() => this.handleChange("type", "genius")}
-            >
+            <RadioItem checked={this.state.type === "genius"} onChange={() => this.handleChange("type", "genius")}>
               牛人
             </RadioItem>
             <WhiteSpace />
-            <RadioItem
-              checked={this.state.type === "boss"}
-              onChange={() => this.handleChange("type", "boss")}
-            >
+            <RadioItem checked={this.state.type === "boss"} onChange={() => this.handleChange("type", "boss")}>
               Boss
             </RadioItem>
           </List>
@@ -87,8 +80,7 @@ class Register extends React.Component {
             注册
           </Button>
         </WingBlank>
-      </div>
-    );
+      </div>;
   }
 }
 export default Register;
