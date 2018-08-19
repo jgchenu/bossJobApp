@@ -9,22 +9,41 @@ function addSalt(pwd) {
     return utils.md5(salt + pwd);
 }
 router.post('/update', async (ctx) => {
-    const {
-        user
-    } = ctx.cookie;
-    console.log('dataL:',JSON.stringify(ctx.request.body),'user:',user)
-    // await User.update({
-    //     ctx.request.body
-    // }, {
-    //     where: {
-    //         user
-    //     }
-    // })
+    try {
+        const {
+            user
+        } = ctx.cookie;
+        console.log('data:', JSON.stringify(ctx.request.body), 'user:', user);
+
+        await User.update(
+            ctx.request.body, {
+                where: {
+                    user
+                }
+            })
+        let result = await User.findOne({
+            where: {
+                user
+            },
+            attributes: {
+                exclude: ['pwd']
+            }
+        })
+        ctx.body = {
+            code: 201,
+            data: result
+        }
+    } catch (error) {
+        ctx.body = {
+            code: 500,
+            msg: error
+        }
+    }
+
 })
 
 router.get('/info', async (ctx) => {
     try {
-        console.log(ctx.cookie)
         const user = ctx.cookie && ctx.cookie.user || '';
         if (!user) {
             ctx.body = {

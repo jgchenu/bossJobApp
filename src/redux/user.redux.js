@@ -3,7 +3,7 @@ import {
     getRedirectPath
 } from './util.js'
 const ERROR_MSG = 'ERROR_MSG';
-const AUTH_SUCCESS='AUTH_SUCCESS';
+const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const LOAD_DATA = 'LOAD_DATA'
 const initState = {
     redirectTo: '',
@@ -16,16 +16,17 @@ const initState = {
 export function user(state = initState, action) {
     switch (action.type) {
         case AUTH_SUCCESS:
-        return{
-            ...state,
-            msg:'',
-            redirectTo: getRedirectPath(action.payload.type)
-        }  
+            return {
+                ...state,
+                msg: '',
+                redirectTo: getRedirectPath(action.payload)
+            }
         case LOAD_DATA:
             return {
                 ...state,
                 ...action.payload,
-                isAuth: true
+                isAuth: true,
+                redirectTo: getRedirectPath(action.payload)
             }
         case ERROR_MSG:
             return {
@@ -37,10 +38,11 @@ export function user(state = initState, action) {
             return state
     }
 }
-export  function update(data) {
-    dispatch=>{
-        axios.post('/user/update', data).then(res=>{
-            if(res.data.code===200){
+export function update(data) {
+    return dispatch => {
+        axios.post('/user/update', data).then(res => {
+            console.log(res)
+            if (res.data.code === 200) {
                 dispatch(authSuccess(res.data.data))
             }
         })
@@ -54,10 +56,10 @@ export function loadData(data) {
     }
 }
 
-function authSuccess(data){
+function authSuccess(data) {
     return {
         type: AUTH_SUCCESS,
-        payload:data
+        payload: data
     }
 }
 

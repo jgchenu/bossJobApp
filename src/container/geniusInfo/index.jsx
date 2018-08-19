@@ -15,14 +15,12 @@ import { Redirect } from "react-router-dom";
   state => state.user,
   { update }
 )
-class BossInfo extends React.Component {
+class GeniusInfo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       title: "",
-      desc: "",
-      company: "",
-      money: ""
+      desc: ""
     };
   }
   handleChange(key, val) {
@@ -43,7 +41,7 @@ class BossInfo extends React.Component {
           <Redirect to={redirectTo} />
         ) : null}
         <NavBar mode="dark" onLeftClick={() => console.log("onLeftClick")}>
-          BOSS信息完善页
+          牛人信息完善页
         </NavBar>
         <AvatarSelector
           selectAvatar={imageName => {
@@ -55,19 +53,13 @@ class BossInfo extends React.Component {
         <List>
           <WingBlank>
             <InputItem onChange={v => this.handleChange("title", v)}>
-              招聘岗位
-            </InputItem>
-            <InputItem onChange={v => this.handleChange("company", v)}>
-              公司名称
-            </InputItem>
-            <InputItem onChange={v => this.handleChange("money", v)}>
-              职业薪资
+              求职岗位
             </InputItem>
             <TextareaItem
               onChange={v => this.handleChange("desc", v)}
               row={3}
               autoHeight
-              title="职业要求"
+              title="个人见解"
             />
           </WingBlank>
           <Button type="primary" onClick={this.handleUpdate}>
@@ -78,4 +70,4 @@ class BossInfo extends React.Component {
     );
   }
 }
-export default BossInfo;
+export default GeniusInfo;
