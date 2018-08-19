@@ -8,6 +8,19 @@ function addSalt(pwd) {
     const salt = 'job_boss_pwd';
     return utils.md5(salt + pwd);
 }
+router.post('/update', async (ctx) => {
+    const {
+        user
+    } = ctx.cookie;
+    console.log('dataL:',JSON.stringify(ctx.request.body),'user:',user)
+    // await User.update({
+    //     ctx.request.body
+    // }, {
+    //     where: {
+    //         user
+    //     }
+    // })
+})
 
 router.get('/info', async (ctx) => {
     try {

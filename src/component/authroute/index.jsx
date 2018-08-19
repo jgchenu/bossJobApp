@@ -2,10 +2,11 @@ import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
 import {connect} from 'react-redux'
-import { getUserInfo} from './../../redux/user.redux'
+import { loadData } from "./../../redux/user.redux";
+import {Toast} from 'antd-mobile'
 @connect(
   state=>state.user,
-  { getUserInfo}
+  { loadData}
 )
 @withRouter
 class AuthRoute extends React.Component {
@@ -15,7 +16,15 @@ class AuthRoute extends React.Component {
     if (publicList.indexOf(pathname) > -1) {
       return null;
     }
-    this.props.getUserInfo()
+    axios.get("/user/info").then(res => {
+      console.log(res)
+      if (res.data.code === 200) {
+        this.props.loadData(res.data.data);
+      } else if (res.data.code === 201) {
+        Toast.loading('没有登录',4);
+        this.props.history.push('/login')
+      }
+    });
   }
   render() {
     return null;

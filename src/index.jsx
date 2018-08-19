@@ -9,7 +9,7 @@ import { Provider } from "react-redux";
 import reducer from "./reducer";
 import AuthRoute from "./component/authroute";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-
+import BossInfo from "./container/bossInfo";
 const store = createStore(
   reducer,
   compose(
@@ -26,6 +26,7 @@ ReactDOM.render(
       <div>
         <AuthRoute />
         <Switch>
+          <Route path="/bossinfo" component={BossInfo} />
           <Route path="/boss" component={Boss} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
