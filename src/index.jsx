@@ -8,11 +8,12 @@ import Register from "./container/register";
 import { Provider } from "react-redux";
 import reducer from "./reducer";
 import AuthRoute from "./component/authroute";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Router, Route, Switch } from "react-router-dom";
 import BossInfo from "./container/bossInfo";
 import GeniusInfo from './container/geniusInfo'
 import DashBoard from './component/dashboard'
 import './index.less'
+import history from './router/history'
 const store = createStore(
   reducer,
   compose(
@@ -23,7 +24,7 @@ const store = createStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <Router history={history}>
       <div>
         <AuthRoute />
         <Switch>
@@ -36,7 +37,7 @@ ReactDOM.render(
           {/* <Redirect to="/login" /> */}
         </Switch>
       </div>
-    </BrowserRouter>
+    </Router>
   </Provider>,
   document.getElementById("root")
 );

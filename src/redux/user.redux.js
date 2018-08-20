@@ -2,6 +2,8 @@ import axios from 'axios';
 import {
     getRedirectPath
 } from './util.js'
+import history from '../router/history'
+import {Toast} from 'antd-mobile'
 const ERROR_MSG = 'ERROR_MSG';
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const LOAD_DATA = 'LOAD_DATA'
@@ -50,7 +52,23 @@ export function update(data) {
     }
 }
 
-export function loadData(data) {
+export function loadData() {
+    return dispatch => {
+        axios.get("/user/info").then(res => {
+            console.log(res)
+            if (res.data.code === 200) {
+               dispatch(infoData(res.data.data))
+            } else if (res.data.code === 201) {
+                Toast.loading('没有登录', 4);
+                history.push('/login')
+            }
+        });
+    }
+
+
+}
+
+function infoData(data) {
     return {
         type: LOAD_DATA,
         payload: data
