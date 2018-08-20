@@ -144,10 +144,18 @@ router.post('/register', async (ctx) => {
 })
 router.get('/list', async (ctx) => {
     try {
-        let result = await User.findAll();
+        let type = ctx.query.type;
+        let result = await User.findAll({
+            where: {
+                type
+            },
+            attributes: {
+                exclude: ['pwd']
+            }
+        });
         ctx.body = {
             code: 200,
-            msg: result
+            data: result
         }
     } catch (error) {
         console.log(error);

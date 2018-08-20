@@ -22,7 +22,7 @@ class AuthRoute extends React.Component {
         this.props.loadData(res.data.data);
       } else if (res.data.code === 201) {
         Toast.loading('没有登录',4);
-        this.props.history.push('/login')
+        // this.props.history.push('/login')
       }
     });
   }

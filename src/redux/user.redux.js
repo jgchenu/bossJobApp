@@ -19,7 +19,8 @@ export function user(state = initState, action) {
             return {
                 ...state,
                 msg: '',
-                redirectTo: getRedirectPath(action.payload)
+                redirectTo: getRedirectPath(action.payload),
+                ...action.payload
             }
         case LOAD_DATA:
             return {

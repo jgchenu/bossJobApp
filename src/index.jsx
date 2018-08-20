@@ -11,6 +11,8 @@ import AuthRoute from "./component/authroute";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import BossInfo from "./container/bossInfo";
 import GeniusInfo from './container/geniusInfo'
+import DashBoard from './component/dashboard'
+import './index.less'
 const store = createStore(
   reducer,
   compose(
@@ -18,9 +20,7 @@ const store = createStore(
     window.devToolsExtension ? window.devToolsExtension() : f => f
   )
 );
-function Boss() {
-  return <h1>Boss</h1>;
-}
+
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
@@ -28,10 +28,11 @@ ReactDOM.render(
         <AuthRoute />
         <Switch>
           <Route path="/bossinfo" component={BossInfo} />
-          <Route path="/boss" component={Boss} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/geniusinfo" component={GeniusInfo} />
+          <Route component={DashBoard} />
+
           {/* <Redirect to="/login" /> */}
         </Switch>
       </div>
