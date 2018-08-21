@@ -17,6 +17,7 @@ yarn build
 ```
 
 ## 后端运行
+``` bash
 # into service
 cd service
 
