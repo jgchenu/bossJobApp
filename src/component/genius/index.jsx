@@ -1,7 +1,12 @@
 import React from "react";
-import axios from "axios";
-import { WingBlank, Card } from "antd-mobile";
+import UserCard from "../usercard";
+import { connect } from "react-redux";
+import { getUserList } from "../../redux/chatuser.redux";
 
+@connect(
+  state => state.chatuser,
+  { getUserList }
+)
 class Genius extends React.Component {
   constructor(props) {
     super(props);
@@ -10,39 +15,10 @@ class Genius extends React.Component {
     };
   }
   componentWillMount() {
-    axios.get("/user/list?type=boss").then(res => {
-      if (res.data.code === 200) {
-        this.setState({
-          data: res.data.data
-        });
-        console.log(res)
-      }
-    });
+    this.props.getUserList("boss");
   }
-render() {
-    const Header = Card.Header;
-    const Body = Card.Body;
-    return (
-      <div>
-        <WingBlank>
-          {this.state.data.map(
-            v =>
-              v.avatar ? (
-                <Card key={v.id}> 
-                  <Header
-                    title={v.user}
-                    thumb={require(`../img/${v.avatar}.png`)}
-                    extra={<span>{v.title}</span>}
-                  />
-                  <Body>
-                      {v.desc}
-                  </Body>
-                </Card>
-              ) : null
-          )}
-        </WingBlank>
-      </div>
-    );
+  render() {
+    return <UserCard userList={this.props.userList} />;
   }
 }
 export default Genius;

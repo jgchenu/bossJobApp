@@ -94,7 +94,9 @@ router.post('/login', async (ctx) => {
         }
     } else {
         ctx.cookies.set(
-            'user', user
+            'user', user,{
+                httpOnly:false
+            }
         )
         ctx.body = {
             code: 200,

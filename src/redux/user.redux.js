@@ -3,10 +3,13 @@ import {
     getRedirectPath
 } from './util.js'
 import history from '../router/history'
-import {Toast} from 'antd-mobile'
+import {
+    Toast
+} from 'antd-mobile'
 const ERROR_MSG = 'ERROR_MSG';
 const AUTH_SUCCESS = 'AUTH_SUCCESS';
 const LOAD_DATA = 'LOAD_DATA'
+const LOGOUT = 'LOGOUT'
 const initState = {
     redirectTo: '',
     msg: '',
@@ -31,6 +34,11 @@ export function user(state = initState, action) {
                 isAuth: true,
                 redirectTo: getRedirectPath(action.payload)
             }
+        case LOGOUT:
+            return {
+                ...initState,
+                redirectTo: '/login'
+            }
         case ERROR_MSG:
             return {
                 ...state,
@@ -39,6 +47,11 @@ export function user(state = initState, action) {
             }
         default:
             return state
+    }
+}
+export function logoutSubmit() {
+    return {
+        type: LOGOUT
     }
 }
 export function update(data) {
@@ -55,9 +68,8 @@ export function update(data) {
 export function loadData() {
     return dispatch => {
         axios.get("/user/info").then(res => {
-            console.log(res)
             if (res.data.code === 200) {
-               dispatch(infoData(res.data.data))
+                dispatch(infoData(res.data.data))
             } else if (res.data.code === 201) {
                 Toast.loading('没有登录', 4);
                 history.push('/login')

@@ -17,6 +17,8 @@ app.use(router.allowedMethods())
 app.use(async (ctx) => {
     ctx.body = `<h1>Hello world</h1>`
 })
+// var server = require('http').Server(app.callback()),
+//     io = require('socket.io')(server);
 app.listen(8080, () => {
     console.log('listen 8080')
 })
