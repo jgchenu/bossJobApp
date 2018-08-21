@@ -1,4 +1,4 @@
-# React.js+Koa2移动电商
+# react+redux+koa2+mysql boss招聘app
 
 > A React.js project 根据mongodb实战视频改写<br/>
 > 前端技术栈:React16+react-router4+css modules+antd-mobile<br>
