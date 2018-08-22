@@ -14,6 +14,7 @@ import GeniusInfo from './container/geniusInfo'
 import DashBoard from './component/dashboard'
 import './index.less'
 import history from './router/history'
+import Chat from './component/chat'
 const store = createStore(
   reducer,
   compose(
@@ -32,6 +33,8 @@ ReactDOM.render(
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
           <Route path="/geniusinfo" component={GeniusInfo} />
+          <Route path="/chat/:user" component={Chat} />
+
           <Route component={DashBoard} />
 
           {/* <Redirect to="/login" /> */}
